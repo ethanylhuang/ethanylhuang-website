@@ -1,0 +1,67 @@
+---
+title: "Test Board"
+publishedAt: "2025-10-6"
+summary: "Building a simple test board with motor and wheel"
+---
+
+For our first quarter project, we built a simple test board with a motor, sprockets, chain and a wheel. This project was a great introduction to many engineering processes like machining and CAD, and already among my favorite school projects I've done.
+
+## Gearbox
+
+We used the [REV robotics 2 motor gearbox kit](https://docs.revrobotics.com/ion-build/build-guides/2-motor-gearbox-assembly#motor-shaft-subassembly-gear-ratios-5-1-and-6-1), although each group only used one motor. Our first task of the project was to assemble and disassemble the gearbox mutliple times with different gear ratios, which was helpful to get familar with the different parts and the assembly process.
+
+<BlogImage src="/gearbox.jpeg" width={700} height={200} alt="Gearbox" />
+
+## Mounting board
+
+For the mounting board, we used a 1/2in piece of wood to mount mechanical components onto. Since we already had the gearboxes assembled, we mounted that the wood first. This involved measuring out the mounting holes on the gearbox and drilling matching holes into the wood. It was my first time drilling screw holes into wood, and a couple of our holes weren't perfectly straight, but we managed to get one screw into each set of holes for a secure mount.
+
+<BlogImage
+  src="/mounted-motor.jpeg"
+  width={400}
+  height={50}
+  alt="Motor mounted"
+/>
+
+Next, we needed to drill out the central bore for the output shaft of the motor.
+We used a drill press equppied with a spade bit for this, which was a new experience
+for me. It wasthe first time using any kind of heavy duty machine, and I was a bit
+nervous at first. Fortunately, the drill press is an easier machine to get started
+with and I quickly got the hang of the technique, moving the spidle slowly as to
+avoid creating too much heat and burn the wood.
+
+<BlogVideo src="/drill-press.MOV" width={400} height={300} alt="Drill press" />
+
+## Wheel shaft
+
+Now that the motor was in place, we needed to created a shaft to connect a wheel to the motor. We used a 1/2in aluminum hex shaft as stock, trimming it lengthwise with a bandsaw and cutting in fastener slots with a precision lathe. Again, it was my first time using either of these machines, but I soon began to gain a sense of joy from operating these powerful machines. The bandsaw was tricky to get used to with the pneumatic lowering mechanism. A particular source of frustration was clamping shorter pieces of stock, which required a second piece of stock for counterbalance. An important tip is to make sure you clamp on the flat sides of the hex shafts for for the tightest grip possible.
+
+<BlogVideo src="/band-saw.mov" width={700} height={500} alt="Bandsaw" />
+
+Next, the precision lathe. I have the soft spot for the lathe, there's something satisfying about the sense of power you get from operating a machine that can spin at thousands of RPM (or chop your head off!). However, I won't pretend that I wasn't unnerved by the screeching metal sound of the lathe during the first use. The lathe was genrally the hardest out of all th emachiens we've used due to the precision required and the zeroing process in the beginning. However, since we used it so much, I'm quite familiar with it and expect to spend ltos of time with it in the future.
+
+<BlogVideo src="/lathe.mov" width={700} height={500} alt="Lathe" />
+
+Here's our finished hex shaft running through the gearbox. I didn't get a picture with the wheel attached, but I promise I did it!
+
+<BlogImage
+  src="/gearbox-shaft.png"
+  width={700}
+  height={50}
+  alt="Finished shaft"
+/>
+
+This part was more of a proof of concept, the real hardcore stuff starts here. Drawings and measurements up to this point were provided by the teacher, now we had to design the rest of the board ourselves. I took a couple Onshape courses and developed a fondness for CAD, and was excited to start designing.
+
+We first did a model of the two shafts based on measurements we took with dial calipers. Then we projected these models using different views to create a technical part drawing to guide machining. Unfortunately, despite my exceiment for CAD, my drawing weren't up to par the first time: some tolerances were too loose whiel others couldn't fit the part. However, after a couple iterations, we got something workable. Here's an especially tight tolerance I'm proud of:
+
+<BlogImage
+  src="/shaft-sprocket.jpeg"
+  width={400}
+  height={200}
+  alt="Tolerance"
+/>
+
+---
+
+This article is a work in progress, I'll update it as we finish powering the gearbox, conecting the shafts with chain, and testing. Thanks for reading!

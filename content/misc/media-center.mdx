@@ -1,0 +1,32 @@
+---
+title: "Raspberry Pi Movie Player"
+publishedAt: "2025-10-05"
+summary: "Playing 4k 10-bit movies on a Raspberry Pi 5"
+---
+
+I really like watching movies.
+
+That's why this weekend, I spent approximately 6 hours setting up my Raspberry Pi 5 to play 4k 80Mbps bitrate movies (instead of studying for SATs).
+Yes, you heard that right, 80Mbps. That's nearing the quality of actual digital cinemas! Surely my puny Raspberry Pi couldn't come close to playing this thing...
+
+### The numbers
+
+First, the bitrate.
+80 megabits per second sounds scary until you divide by eight. That’s 10 megabytes per second of data that needs to reach the decoder. A Raspberry Pi 5 running off an NVMe drive easily reads 400–450 MB/s through its PCIe 3.0 slot. Even a good USB 3.0 SSD would still breeze past this.
+
+Next, the decoder.
+A key part of this is that the Pi 5 has a hardware HEVC decoder capable of 4K60 10-bit video. The decoding is offloaded to this circuitry so the CPU mostly sits idle. Most movies are 4k24, so we shoudl be well within the acceptable threshold.
+
+Then, the thermals.
+Theoretically, with the official Raspberry Pi 5 active cooler (~$10) there would never be any thermal throttling at any point of my workflow. Unfortunately, I don't have this cooler on hand and was pushing the limits of the Pi, but I'll get into that later.
+
+Finally, the network and file system.
+We have super fast internet, I get around 700MBps download on my Macbook Pro. Unfortunately, the Pi 5 isn't blessed with as good as a WiFi chip, and streaming directly from a NAS is out of reach (for now!)
+
+### Software
+
+I chose LibreELEC, which is a minimal OS for running the media player app Kodi. This works great, and I cannot recommend it enough. It lacks the general use services and packages found in the Raspbery Pi OS to squeeze every drop of performance out of the Pi, yet there was no sacrifice in setup convenience.
+
+I was surprised that upon first boot, my Samsung TV remote automatically connected, no Bluetooth pairing or wired keyboard needed. The setup offers a convenient option to enable SSH immediately and create a user and password, my preferred method of management.
+
+Kodi, the actual media player app was slightly frustrating. Adding a media source through the GUI had me stuck for a while because the movies from my NVMe weren't showing up despite configuring the movies source to the correct directory.
