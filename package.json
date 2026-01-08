@@ -9,13 +9,17 @@
     "@mdx-js/mdx": "^2.3.0",
     "@tailwindcss/postcss": "4.0.0-alpha.13",
     "@types/node": "20.11.17",
-    "@types/react": "18.2.55",
-    "@types/react-dom": "18.2.19",
-    "next": "canary",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "next": "16.1.1",
     "postcss": "^8.4.35",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "tailwindcss": "4.0.0-alpha.13",
     "typescript": "5.3.3"
+  },
+  "overrides": {
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3"
   }
 }

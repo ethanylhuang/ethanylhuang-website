@@ -1,5 +1,5 @@
 import { compile, run } from "@mdx-js/mdx";
-import { cache } from "react";
+import { cache, type JSX } from "react";
 import * as runtime from "react/jsx-runtime";
 
 type MdxModule = {
