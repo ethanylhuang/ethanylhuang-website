@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Fira_Code as FiraCode, Inter } from "next/font/google";
 import { Breadcrumb } from "./components/breadcrumb";
 import { Navbar } from "./components/nav";
+import { Footer } from "./components/footer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const fira = FiraCode({ subsets: ["latin"], variable: "--font-mono" });
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           </header>
           <div className="mt-8" />
           {children}
+          <Footer />
         </main>
       </body>
     </html>

@@ -1,0 +1,68 @@
+---
+title: "Quarter 2: Certifications"
+publishedAt: "2026-1-6"
+summary: "OSHA, NC3 Mechatronics and Onshape CAD certifications"
+---
+
+This quarter, we took a break from the shop due to a substitute teacher situation, and spent our time on computers working various industry certifications and trainings.
+
+## OSHA
+
+Standing for "Occupational Safety and Health Administration", OSHA is an organization in charge of workplace regulations and standards. For example, it establishes standards for the amount of load a ladder must sustain and that rungs must have a uniform spacing not exceeding 8 inches.
+
+We completed the OSHA 10 certification, a 10 hour course outlining common workplace safety hazards and the OSHA standards establisehd to counteract them. While it may have seemed silly in the moment to be memorizing details like the length that the ladders must extend past the landing surface, retrospect tells me that it was well worth -- equpiping me with important safety skills for the future workplace.
+
+<BlogImage
+  src="/osha_certificate.png"
+  width={600}
+  height={200}
+  alt="OSHA certificate"
+/>
+
+## Onshape
+
+This quarter, we finished the [Onshape CAD basics course](https://learn.onshape.com/learning-paths/introduction-to-cad), which includes the basics of sketching, part studios (common features like extrude revolve and loft), assemblies (the different types of mates) and part drawings.
+
+Here are a few samples of a simple shape as well as a slightly more complex practice assembly I did as a part of this course:
+
+<div className="flex flex-row items-center justify-center space-x-8">
+    <BlogImage
+    src="/onshape_funnel.png"
+    width={500}
+    height={200}
+    alt="Onshape Funnel"
+    />
+
+    <BlogImage
+    src="/onshape_cylinder.png"
+    width={200}
+    height={200}
+    alt="Onshape Funnel"
+    />
+
+</div>
+
+We also completed a more domain specific CAD training, the [Onshape CAD for Robotics course](https://learn.onshape.com/learning-paths/cad-for-robotics) where we learn how to use FIRST robotic competition specific component libraries as well as custom designed parts to model robots.
+
+For example, there was a unit with the goal of modeling a swerve (omnidirectional) drivebase, a component foundational to nearly all FRC robots. This heavily utilized the MKCad library, importing off-the-shelf components such as motors or entire swerve modules from FRC vendors, and connecting everything using mates. This was greatly helpful, especially since I will be helping model a similar drivebase during the FRC season.
+
+<BlogImage
+  src="/onshape_drivetrain.png"
+  width={600}
+  height={100}
+  className=""
+></BlogImage>
+
+The next lesson had us learning soome Onshape specific. In other CAD programs typically there is one file for each part. However, in Onshape, there is the concept of Part Studios, which allows you to model related parts together much more rapidly. Some techniques learned was when to use multi-part studios compared to the derived features or in-context Part Studios. We also learned the basics of Onshape collaboration, including versioning and branching so that multiple people can work on a project simultaneously. Here as an example of a project completed using these techniques.
+
+<BlogImage src="/onshape_camera_mount.png" width={600} height={100}></BlogImage>
+
+## Mechatronics Certification
+
+In addition to the OSHA and Onshape courses, we also began the [NC3 Introduction to Mechatronics](https://www.nc3.net/wp-content/uploads/2019/11/Introduction-to-Mechatronics-Overview-Final.pdf) certification. The first few units of this certification were aimed at explaining what mechatronics is and how it is useful, particularly in the context of manufacturing and automation. The overall aim of the course is to build and program a system which can stack, pack, and ship a container along an assembly line.
+
+So far, most chapters have involved the FluidSim software, which is a simulation for designing electro-pneumatic circuits. This culimated in a project to design an electro-pneumatic system to compress a cylinder upon the press of a switch, and keeping it compressed for a few seconds before releasing back to the original state.
+
+<BlogVideo src="/fluidsim_recording.mp4" width={500} height={500}></BlogVideo>
+
+That's as far as we've gotten as of the end of the first semester. We will eventually finish the rest of the certification and this post will be updated.

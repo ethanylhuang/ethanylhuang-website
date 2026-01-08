@@ -6,7 +6,7 @@ summary: "Playing 4k 10-bit movies on a Raspberry Pi 5"
 
 I really like watching movies.
 
-That's why this weekend, I spent approximately 6 hours setting up my Raspberry Pi 5 to play 4k 80Mbps bitrate movies (instead of studying for SATs).
+That's why this weekend, I spent approximately 6 hours setting up my Raspberry Pi 5 to play 4k 80Mbps bitrate movies that I ripped from my 4k BluRay collection.
 Yes, you heard that right, 80Mbps. That's nearing the quality of actual digital cinemas! Surely my puny Raspberry Pi couldn't come close to playing this thing...
 
 ### The numbers
@@ -29,4 +29,14 @@ I chose LibreELEC, which is a minimal OS for running the media player app Kodi. 
 
 I was surprised that upon first boot, my Samsung TV remote automatically connected, no Bluetooth pairing or wired keyboard needed. The setup offers a convenient option to enable SSH immediately and create a user and password, my preferred method of management.
 
-Kodi, the actual media player app was slightly frustrating. Adding a media source through the GUI had me stuck for a while because the movies from my NVMe weren't showing up despite configuring the movies source to the correct directory.
+Kodi, the actual media player app was slightly frustrating. Adding a media source through the GUI had me stuck for a while because the movies from my NVMe weren't showing up despite configuring the movies source to the correct directory. Also, I still haven't figured out how I can change the source after it is set, or edit/delete a source from the list. I ended up configuring things through SSH by directly editing the `~/.kodi/userdata/sources.xml` file.
+
+I also ran into some werid artifacts on my screen, which was quickly fixed with the "Adjust display refresh rate" setting in the Kodi GUI. Soon enough, the sounds of _Interstellar_ boomed through my living room in its 1.78:1 glory.
+
+But I wasn't satisfied yet.
+
+### File transfer
+
+I had some movies ripped onto various hard drives and initially tried network transfer. Turns out, the Raspberry Pi's inbuilt WiFi chip and antenna (the lack thereof) meant I was getting <10Mbps using `rsync`. Ok no problem, just write the files onto an external SSD, right? Unfortunately, upon plugging in my [Sandisk 900 Extreme](https://www.amazon.com/SanDisk-Extreme-Portable-960GB-SDSSDEX2-960G-G25/dp/B01127E6P4?th=1), I was still getting <30Mbps transfer rates. Also, I noticed that it was getting hot and crashing, which led to believe that it was a power issue.
+
+A google search revealed

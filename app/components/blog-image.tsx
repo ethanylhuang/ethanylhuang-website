@@ -3,7 +3,7 @@ import Image, { ImageProps } from "next/image";
 export function BlogImage(props: ImageProps) {
   return (
     <div className="flex justify-center">
-      <Image {...props} className="" />
+      <Image {...props} />
     </div>
   );
 }
