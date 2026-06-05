@@ -59,13 +59,13 @@ export default async function BlogPost({
   const mdxComponents = { BlogImage, BlogVideo };
 
   return (
-    <article className="prose dark:prose-invert">
+    <article className="prose">
       <header>
         <h1 className="title font-semibold text-6xl tracking-tight">
           {entry.metadata.title}
         </h1>
         {entry.metadata.publishedAt && (
-          <p className="text-lg text-slate-300">
+          <p className="text-lg text-neutral-600">
             {formatDate(entry.metadata.publishedAt)}
           </p>
         )}

@@ -29,7 +29,7 @@ export function Breadcrumb() {
   const displayPath = buildDisplayPath(pathname ?? "/");
 
   return (
-    <div className="flex flex-col space-y-1 text-sm font-mono text-neutral-400 dark:text-neutral-400">
+    <div className="flex flex-col space-y-1 text-sm font-mono text-neutral-400">
       <span className="tracking-wide">{displayPath}</span>
     </div>
   );

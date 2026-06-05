@@ -10,11 +10,25 @@ I thought the Expression Evaluator project was interesting because it forced me 
 
 <BlogVideo src="/expression-evaluator-demo.mov" width={700} height={285} />
 
-## Parsing And Error Handling
+## Project Phases
 
-The difficult part was that every layer depended on the previous one being clean. Before evaluation could work, the input had to be parsed into a form where operations, values, parentheses, and implicit multiplication were all represented consistently.
+The project started with a stack implementation for basic operations. I used one stack for numbers and one stack for operators, so the evaluator could delay execution until operator precedence and parentheses made it valid to calculate. This was the first time I had to turn something that feels automatic in math into a strict algorithm.
 
-Once implicit multiplication was parsed clearly, operation errors and data errors became considerably simpler. The project was less about one complicated algorithm and more about making sure each small rule was handled before it could break the next stage.
+After that, I added static error checking, especially for parentheses. The program checked for mismatched parentheses, empty parentheses, invalid operator placement, invalid data tokens, and divide-by-zero at runtime. This mattered because the evaluator depended on clean tokens before the stack loop could safely run.
+
+The later phases were more complicated because they dealt with cases that look natural to people but are not explicit in code. I added support for implicit multiplication, implicit negatives, and negative numbers in general. A minus sign could mean subtraction or a negative number depending on where it appeared, and expressions like `2(3+4)` had to be converted into something the evaluator could actually process.
+
+The main loop came down to deciding when the top operator should execute. This small rule carried most of the order-of-operations behavior.
+
+```java
+if (operStack.empty() || operStack.peek().equals("(") || curr.equals("(")) {
+  return false;
+}
+if (operStack.peek().matches("[\\+\\-]") && curr.matches("[\\*\\/]")) {
+  return false;
+}
+return true;
+```
 
 ## Debugging The Evaluation Loop
 
@@ -27,3 +41,8 @@ After stepping through the debugger, I found a fundamental flaw in my core evalu
 The biggest learning was that clean core logic matters more than passing the first tests quickly. A shaky evaluation loop can survive simple cases, but it becomes painful once edge cases start stacking on top of it.
 
 I was proud of the final product because I think it was some of the cleanest code I had written yet. It also made me wonder how similar computer math engines work under the hood, especially in systems where the order of operations has to stay deterministic.
+
+## Documents And Reflections
+
+- [Expression Evaluator Reflection](https://drive.google.com/file/d/17gE5K6uBHE4eIrzCPYY4cl8Di9ivTt9h/view?usp=drivesdk)
+- [Back to ADEN](/aden)

@@ -61,12 +61,12 @@ export default async function BlogIndex({
         {section.title}
       </h1>
       {section.description && (
-        <p className="mb-6 text-xl text-slate-200">
+        <p className="mb-6 text-xl text-neutral-800">
           {section.description}
         </p>
       )}
       {posts.length === 0 ? (
-        <p className="text-lg text-slate-300">
+        <p className="text-lg text-neutral-600">
           Drop an MDX file into the matching folder to start this section.
         </p>
       ) : (
@@ -75,16 +75,16 @@ export default async function BlogIndex({
             <li key={post.slug} className="flex flex-col space-y-1">
               <Link
                 href={`/${section.slug}/${post.slug}`}
-                className="text-2xl font-semibold transition-all hover:text-white"
+                className="text-2xl font-semibold transition-all hover:text-black"
               >
                 {post.metadata.title}
               </Link>
-              <div className="flex items-center space-x-3 text-base text-slate-300">
+              <div className="flex items-center space-x-3 text-base text-neutral-600">
                 {post.metadata.publishedAt && (
                   <span>{formatDate(post.metadata.publishedAt)}</span>
                 )}
                 {post.metadata.summary && (
-                  <span className="text-slate-300/80">
+                  <span className="text-neutral-500">
                     {post.metadata.summary}
                   </span>
                 )}

@@ -12,9 +12,9 @@ The goal of the RSLK project was to program the TI-RSLK robot to follow a line u
 
 ## Sensors And Bit-Level IO
 
-This project was where I learned what registers are and how to work with them directly. I learned how to read register values, use bitmasks to isolate or change specific bits, and manipulate data at the bit level instead of relying on higher level abstractions.
+This project was where I learned what registers are and how to work with them directly. I initialized GPIO pins by editing `SEL`, `DIR`, `REN`, `OUT`, and `DS` registers, using bitmasks to preserve unrelated bits while changing only the pins I needed.
 
-I used this to power LEDs in a specific sequence and to read IR sensor data. I found interrupts interesting because they let the robot continuously sample sensor values without blocking the main program. From there, I could output the matching sensor state by lighting the corresponding LED.
+I used this to power LEDs in a specific sequence and to read IR sensor data. The reflectance sensor code charged the sensor pins, switched them back to inputs, then read `P7->IN` after the voltage decayed. I found interrupts interesting because SysTick let the robot start and finish reflectance reads on a timer without blocking the main program.
 
 ## Motors, FSMs, And PWM
 
@@ -41,10 +41,20 @@ This structure made the line-following logic easier to reason about because each
 
 ## PID Closed Feedback Loop Controller
 
-The final version used a PID-style closed feedback loop controller, though I primarily used the P term. The D term was not very suited for our robot because the sensor fidelity was too low, making derivative-based correction more noisy than useful.
+The final version used a PID-style closed feedback loop controller, though I primarily used the P term. The code used `Reflectance_Position(Data)` to turn the eight sensor bits into a signed position error, then adjusted left and right PWM in opposite directions. The checked-in version used `Kp = 2300` and `Kd = 0`, with PWM clamped between `2` and `14998`.
 
 I tuned the constants differently depending on the track. On the flat track, I tried to minimize `Kp` so the robot would drive as straight as possible without oscillating. On the curved Le Mans track, I had to raise `Kp` significantly so the robot could handle hard turns. The tradeoff was that with imperfect hardware and other confounding factors, it oscillated on the final straightaway.
 
 <BlogVideo src="/pid-curve.mov" width={700} height={500} />
 
 This version showed much better curve following than the FSM, but the tradeoff was worse oscillation on the straightaway.
+
+## Documents And Reflections
+
+- [Working at a Bit Level Reflection](https://drive.google.com/file/d/1ugPW3O6hag3d0P0MXVnHngmOkx8zXcAF/view?usp=drivesdk)
+- [RSLK Line Sensor Reflection](https://drive.google.com/file/d/16a1iA1HNfbqgOY7ffBv1BbDs2zPTh6gn/view?usp=drivesdk)
+- [RSLK Finite State Machines Reflection](https://drive.google.com/file/d/1lhqGsEoMy4JqqpcIverxcux9tBqGJ_Eo/view?usp=drivesdk)
+- [RSLK SysTick And Interrupts Reflection](https://drive.google.com/file/d/1HiFePOjBPGMkiMK3LXOK3O9PvDJtYHyF/view?usp=drivesdk)
+- [RSLK Encoder Data Analysis](https://docs.google.com/document/d/1dR0I7-uBLgVYYNMEMSBeZY4Rl--I-wNsCitAb-Pd1gk/edit?usp=drivesdk)
+- [RSLK Encoder Data Spreadsheet](https://docs.google.com/spreadsheets/d/1mZV5_qUqTPch7mXUlwtHMrhmZPGWiEQnz7LSiqKiULs/edit?usp=drivesdk)
+- [Back to ADEN](/aden)

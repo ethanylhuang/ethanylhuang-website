@@ -8,11 +8,15 @@ summary: "Compression trees, binary IO, and compression ratio analysis"
 
 During this project, I learned how Huffman compression works by using variable length character representations, with the most frequent characters getting the shortest codes. The goal was to build that structure from the ground up, then use it to compress and analyze real text files.
 
-## Compression Tree And Binary IO
+## Project Phases
 
-The implementation centered on generating character weights, building a frequency weighted tree, and using binary IO to write and read compressed data. This takes advantage of the fact that characters like spaces or common letters show up often, so giving them shorter representations saves space.
+The project started with generating character weights from an input file. This gave the rest of the program the frequency data it needed to decide which characters should get shorter or longer binary representations.
 
-I liked the pacing of the project because it let me work through the implementation section by section after being taught the concepts in class. Going from weights, to the tree, to actual compression made the algorithm feel understandable instead of appearing all at once.
+From there, the implementation moved into building the Huffman tree. The tree was built by repeatedly combining the least common characters, which naturally pushed rarer characters deeper into the tree and kept more common characters closer to the root. Once the tree was complete, I traversed it to create an encoding map for each character.
+
+The hardest implementation shift was binary IO. The compressed file was no longer regular text, so encoding had to write a stream of bits while decoding had to read those bits back and walk the same tree until the original file was reconstructed. This made the relationship between encode and decode feel much tighter, because any mismatch between the tree, bit stream, or stopping condition broke the entire process.
+
+I liked the pacing of the project because it let me work through the implementation section by section after being taught the concepts in class. Going from weights, to the tree, to encoding and decoding made the algorithm feel understandable instead of appearing all at once.
 
 ## Data Analysis
 
@@ -32,3 +36,10 @@ The Cat in the Hat weights worked better for most files except War and Peace. Th
 I found it interesting that such a fundamental and common compression algorithm is relatively simple at its core. It also made the memory tradeoff more visible, since the Huffman tree has to be stored in order to decode the file.
 
 I still wonder about the efficiency limits of Huffman compression and how similar algorithms are used for image compression.
+
+## Documents And Reflections
+
+- [Huffman Compression Reflection](https://drive.google.com/file/d/1PMLHHMKlTXGcHdoNYnYlYKZOxogVitCL/view?usp=drivesdk)
+- [Huffman Compression Ratio Analysis](https://docs.google.com/document/d/1ZpNnSg59miwby0R2PZdP3yeGA2sSDvaWGV-tefL8Xxg/edit?usp=drivesdk)
+- [Huffman Compression Ratio Data](https://docs.google.com/spreadsheets/d/1k61Eda6E2j515MkpcbOC_UZ2GYvDJ5GRgrpArwtRZbc/edit?usp=drivesdk)
+- [Back to ADEN](/aden)

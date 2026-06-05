@@ -15,11 +15,11 @@ export default function ProjectsSection() {
   return (
     <section>
       <h1 className="text-6xl font-semibold tracking-tight mb-6">Misc</h1>
-      <p className="text-xl text-slate-200 max-w-prose mb-10">
+      <p className="text-xl text-neutral-800 max-w-prose mb-10">
         miscellaneous (adj.) - (of items or people gathered or considered
         together) of various types or from different sources.
       </p>
-      <p className="text-xl text-slate-200 max-w-prose mb-10">
+      <p className="text-xl text-neutral-800 max-w-prose mb-10">
         Basically, random (cool) stuff!
       </p>
       <div className="space-y-4">
@@ -27,11 +27,11 @@ export default function ProjectsSection() {
           <article key={post.slug} className="flex flex-col">
             <Link
               href={`/${SLUG}/${post.slug}`}
-              className="text-2xl font-semibold transition-colors hover:text-white"
+              className="text-2xl font-semibold transition-colors hover:text-black"
             >
               {post.metadata.title}
             </Link>
-            <div className="text-base text-slate-300">
+            <div className="text-base text-neutral-600">
               {post.metadata.publishedAt && (
                 <span>{formatDate(post.metadata.publishedAt)}</span>
               )}
@@ -42,7 +42,7 @@ export default function ProjectsSection() {
           </article>
         ))}
         {posts.length === 0 && (
-          <p className="text-lg text-slate-300">
+          <p className="text-lg text-neutral-600">
             No entries yet. Add an MDX file inside <code>content/{SLUG}</code>{" "}
             to get started.
           </p>

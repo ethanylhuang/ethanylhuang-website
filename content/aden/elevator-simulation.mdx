@@ -10,6 +10,12 @@ The elevator project was the largest project in this course, spanning around 2-3
 
 <BlogVideo src="/rslk-drag-race.mp4" width={700} height={500} />
 
+## Project Phases
+
+The first phase was planning the class structure and state behavior in the [v1 design document](https://docs.google.com/document/d/1Wz9h_qjj_oui7Do0utei4dFON-t0VcdgCs1X6gCaRhA/edit?usp=drivesdk). From there, the implementation moved into the core simulation classes: `Building`, `Elevator`, `Floor`, `Passengers`, and `CallManager`.
+
+The later phase, reflected in the [v2 design document](https://docs.google.com/document/d/19CPBASkNkTpouGYVaYxELb0tKCbS0gl16OZey5VJcDc/edit?usp=drivesdk), was about making the simulation robust enough to handle more realistic behavior. That included capacity limits, polite and impolite passengers, give-ups, skipped groups, call prioritization, and passenger data output for analysis.
+
 ## Finite State Machine
 
 The core of the project was the building finite state machine. Each state represented one discrete part of the elevator's behavior, from waiting with closed doors to moving one floor, opening doors, unloading passengers, boarding passengers, and closing again.
@@ -56,16 +62,32 @@ public enum ElStates {
 }
 ```
 
-This enum made the logic much easier to reason about because every tick of the simulation had to move through a known state. Instead of treating elevator behavior as one large block of conditional logic, the system could advance incrementally and check whether it needed to stop, open doors, unload, board, or keep moving.
+This enum made the logic much easier to reason about because every tick of the simulation moved through a known state. In `Building.updateElevator`, the current state dispatched to a matching helper method like `currStateStop`, `currStateBoard`, or `currStateMv1Flr`, which kept each transition smaller and easier to test.
 
 ## Class Responsibilities
 
 Our team split the project across the GUI, controller, building, elevator, passenger, floor, and call manager classes. I focused on the `Building` and `Elevator` classes, which meant connecting arriving passengers to the correct floor queues, advancing time, updating elevator state, handling door timing, setting direction, and removing passengers once they reached their destination.
 
-The `Building` class acted as the coordinator. It had to know when passengers had been added for a tick, pass calls into the system, and update the elevator after time advanced. The `Elevator` class handled the more physical behavior: current floor, target floor, direction, doors, movement, and passenger transfer.
+The `Building` class acted as the coordinator. It added passengers to up or down queues, asked `CallManager` which calls were pending, logged state changes, and wrote passenger results. The `Elevator` class handled the physical model: current floor, direction, door state, capacity, passengers grouped by destination floor, and timing for movement, doors, boarding, and offloading.
 
-## Integration And Debugging
+## Analysis Summary
+
+The analysis came from running different configuration and behavior tests, then comparing the passenger output. The simulation wrote a `PassData.csv` file with each passenger group's ID, size, origin, destination, wait-to-board time, and total time. That made the comparison more concrete because success was not just whether the elevator moved, but how long passengers waited and whether they gave up.
+
+This also forced the implementation to handle edge cases instead of only the happy path. Capacity tests, give-up tests, polite passenger behavior, and call-priority tests all exposed different weaknesses in the state logic.
+
+## Key Learnings
 
 The hardest part was not writing any one method in isolation. It was making separately written code actually agree on interfaces, helper methods, getters, setters, and encapsulation responsibilities. A lot of the final work became writing the "glue" that connected classes written by different people, which was a direct side effect of division of labor.
 
 Most of our time was spent on calls debugging tests one by one, stepping through the code line by line and checking the reality against the ground truth incrementally. The project taught me that clean class prototyping has to happen early, because small mistakes in foundational classes compound quickly once every subsystem depends on the others.
+
+## Documents And Reflections
+
+- [Elevator Simulation OSTRICH Design Document, v1](https://docs.google.com/document/d/1Wz9h_qjj_oui7Do0utei4dFON-t0VcdgCs1X6gCaRhA/edit?usp=drivesdk)
+- [Elevator Simulation OSTRICH Design Document, v2](https://docs.google.com/document/d/19CPBASkNkTpouGYVaYxELb0tKCbS0gl16OZey5VJcDc/edit?usp=drivesdk)
+- [Elevator Reflection #1](https://drive.google.com/file/d/10yZb6Ck0xHwj8Et_dqmzvkOLDfUDkjKK/view?usp=drivesdk)
+- [Elevator Weekly Reflection #2](https://drive.google.com/file/d/1O_k5LqaOqrzNie03XyPj49RRmBd21TEO/view?usp=drivesdk)
+- [Elevator Weekly Reflection #3](https://drive.google.com/file/d/1y-S3tStjTeYlJ18SUAj2rmpb6bGZmxBJ/view?usp=drivesdk)
+- [Elevator Weekly Reflection #4](https://drive.google.com/file/d/1wp2njq7jyGhnIb_Irad2FXmAwoAajOR_/view?usp=drivesdk)
+- [Back to ADEN](/aden)

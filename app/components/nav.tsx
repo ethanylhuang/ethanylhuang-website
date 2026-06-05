@@ -27,7 +27,7 @@ export function Navbar() {
           <Link
             key={item.href}
             href={item.href}
-            className="text-white transition-all hover:text-white flex align-middle relative py-2 px-3 mr-1 text-lg capitalize font-semibold first:pl-0 first:ml-0"
+            className="text-neutral-950 transition-all hover:text-black flex align-middle relative py-2 px-3 mr-1 text-lg capitalize font-semibold first:pl-0 first:ml-0"
           >
             {item.label}
           </Link>

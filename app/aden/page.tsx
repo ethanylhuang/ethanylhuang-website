@@ -17,19 +17,20 @@ export default function AdenSection() {
   return (
     <section>
       <h1 className="text-6xl font-semibold tracking-tight mb-6">ADEN</h1>
-      <p className="text-base text-slate-300 max-w-prose mb-10">
+      <p className="text-base text-neutral-600 max-w-prose mb-10">
         {DESCRIPTION}
       </p>
+      <h2 className="mb-4 text-2xl font-semibold tracking-tight">Projects</h2>
       <div className="space-y-4">
         {posts.map((post) => (
           <article key={post.slug} className="flex flex-col">
             <Link
               href={`/${SLUG}/${post.slug}`}
-              className="text-2xl font-semibold transition-colors hover:text-white"
+              className="text-2xl font-semibold transition-colors hover:text-black"
             >
               {post.metadata.title}
             </Link>
-            <div className="text-base text-slate-300">
+            <div className="text-base text-neutral-600">
               {post.metadata.publishedAt && (
                 <span>{formatDate(post.metadata.publishedAt)}</span>
               )}
@@ -40,7 +41,7 @@ export default function AdenSection() {
           </article>
         ))}
         {posts.length === 0 && (
-          <p className="text-lg text-slate-300">
+          <p className="text-lg text-neutral-600">
             No entries yet. Add an MDX file inside <code>content/{SLUG}</code>{" "}
             to get started.
           </p>

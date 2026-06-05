@@ -8,11 +8,22 @@ summary: "Hash table collision strategies, load factors, and benchmark analysis"
 
 In this assignment, I learned about hashes and their utility as a tradeoff between memory and lookup speed. The goal was to compare different collision strategies, including linear probing, quadratic probing, linked list hashing, and cuckoo hashing, then analyze how they performed under different load factors and datasets.
 
+## Implementation Details
+
+The project centered on one `MyIntHash` implementation that could switch between collision strategies while keeping the same public behavior. That made the comparison cleaner because `add`, `contains`, and `remove` were tested through the same interface, but the internal response to collisions changed depending on the mode.
+
+The main implementation difference was how each strategy handled a crowded table. Linear and quadratic probing searched for another open slot, linked list hashing stored collisions in buckets, and cuckoo hashing gave each value two possible locations and moved values around when both were occupied. Deletion was also more subtle than I expected, since open addressing has to preserve the search path for future lookups.
+
 ## Dataset Analysis
 
 The benchmark compared a more evenly distributed dataset against a highly bimodal one. I expected the bimodal data to hurt every implementation because the concentration of values would create clustering, causing slower operations and more hash growth.
 
-<BlogImage src="/dataset-d-histogram.svg" width={700} height={433} alt="Histogram of Dataset D showing a bimodal distribution" />
+<BlogImage
+  src="/dataset-d-histogram.svg"
+  width={700}
+  height={433}
+  alt="Histogram of Dataset D showing a bimodal distribution"
+/>
 
 Some general patterns showed up across the graphs. At higher load factors, `contains` was slower for misses because probing had to be completed until an empty slot was reached, whereas a hit could stop early. `Add` was also slower than `contains` because it called `contains` first, meaning it inherited the same miss-performance problem at high load factors.
 
@@ -35,3 +46,9 @@ Even though cuckoo hashing showed the clustering in the utilization map, it was 
 This project made hashes feel less like a black box. They are essentially a way to maintain near `O(1)` lookups without exhaustive memory usage, but that performance depends heavily on load factor, collisions, and the structure of the input data.
 
 The data analysis portion was the hardest part because creating and interpreting graphs was much more time consuming than I expected. I also ran into anomalies that I could not concretely answer, so I had to make reasonable guesses based on my understanding of the implementation or attribute them to some external factor.
+
+## Documents And Reflections
+
+- [Hashes Data Analysis Report](https://docs.google.com/document/d/1HZo88xc46Np2PjNwlagoVEcf0QqhHArU2N4AhlRI_n0/edit?usp=drivesdk)
+- [Hashes Data Analysis Spreadsheet](https://docs.google.com/spreadsheets/d/1wF39JyaCOy8VOvRjaLN9V3c07Wqt4-3lyACSV3NTiVs/edit?usp=drivesdk)
+- [Back to ADEN](/aden)
