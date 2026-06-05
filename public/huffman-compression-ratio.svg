@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="371" viewBox="0 0 600 371" role="img" aria-labelledby="title desc">
+  <title id="title">Compression Ratio with War and Peace versus The Cat in the Hat</title>
+  <desc id="desc">Grouped bar chart comparing compression ratios using War and Peace weights and The Cat in the Hat weights across five text files.</desc>
+  <rect width="600" height="371" fill="#fff" />
+  <text x="19" y="38" font-family="Arial, sans-serif" font-size="21" fill="#666">Compression Ratio w/ WAP vs TCITH</text>
+  <g font-family="Arial, sans-serif" font-size="12" fill="#000">
+    <text x="23" y="304">0.0</text>
+    <text x="23" y="251">0.2</text>
+    <text x="23" y="198">0.4</text>
+    <text x="23" y="145">0.6</text>
+    <text x="23" y="92">0.8</text>
+  </g>
+  <g stroke="#ccc" stroke-width="1">
+    <line x1="45" x2="582" y1="300" y2="300" />
+    <line x1="45" x2="582" y1="247" y2="247" />
+    <line x1="45" x2="582" y1="194" y2="194" />
+    <line x1="45" x2="582" y1="141" y2="141" />
+    <line x1="45" x2="582" y1="88" y2="88" />
+  </g>
+  <g font-family="Arial, sans-serif" font-size="12" fill="#000">
+    <rect x="194" y="56" width="12" height="12" fill="#4285f4" />
+    <text x="214" y="66">Ratio w/ WAP</text>
+    <rect x="304" y="56" width="12" height="12" fill="#ea4335" />
+    <text x="324" y="66">Ratio w/ TCITH</text>
+  </g>
+  <g>
+    <rect x="82" y="142.1" width="31" height="157.9" rx="2" fill="#4285f4" />
+    <rect x="115" y="149.0" width="31" height="151.0" rx="2" fill="#ea4335" />
+    <rect x="182" y="147.4" width="31" height="152.6" rx="2" fill="#4285f4" />
+    <rect x="215" y="147.6" width="31" height="152.4" rx="2" fill="#ea4335" />
+    <rect x="282" y="135.4" width="31" height="164.6" rx="2" fill="#4285f4" />
+    <rect x="315" y="143.1" width="31" height="156.9" rx="2" fill="#ea4335" />
+    <rect x="382" y="148.0" width="31" height="152.0" rx="2" fill="#4285f4" />
+    <rect x="415" y="155.2" width="31" height="144.8" rx="2" fill="#ea4335" />
+    <rect x="482" y="151.9" width="31" height="148.1" rx="2" fill="#4285f4" />
+    <rect x="515" y="150.3" width="31" height="149.7" rx="2" fill="#ea4335" />
+  </g>
+  <g font-family="Arial, sans-serif" font-size="12" fill="#000" text-anchor="middle">
+    <text x="114" y="316">Green Eggs and Ham</text>
+    <text x="214" y="316">Harry Potter</text>
+    <text x="314" y="316">Simple</text>
+    <text x="414" y="316">The Cat in the Hat</text>
+    <text x="514" y="316">War and Peace</text>
+    <text x="314" y="350">File Name</text>
+  </g>
+</svg>

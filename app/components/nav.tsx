@@ -3,13 +3,18 @@ import { getBlogs } from "../../lib/content";
 
 export function Navbar() {
   const blogs = getBlogs();
+  const misc = blogs.find((blog) => blog.slug === "misc");
+  const orderedBlogs = [
+    ...blogs.filter((blog) => blog.slug !== "misc"),
+    ...(misc ? [misc] : []),
+  ];
 
   const navItems = [
     {
       href: "/",
       label: "home",
     },
-    ...blogs.map((blog) => ({
+    ...orderedBlogs.map((blog) => ({
       href: `/${blog.slug}`,
       label: blog.title,
     })),
@@ -22,7 +27,7 @@ export function Navbar() {
           <Link
             key={item.href}
             href={item.href}
-            className="text-slate-100 transition-all hover:text-white flex align-middle relative py-2 px-3 mr-1 text-lg capitalize font-semibold first:pl-0 first:ml-0"
+            className="text-white transition-all hover:text-white flex align-middle relative py-2 px-3 mr-1 text-lg capitalize font-semibold first:pl-0 first:ml-0"
           >
             {item.label}
           </Link>

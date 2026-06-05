@@ -21,7 +21,7 @@ function buildDisplayPath(pathname: string) {
     parts.push(fileLabel);
   }
 
-  return `/${parts.join(" / ")}`;
+  return `/ ${parts.join(" / ")}`;
 }
 
 export function Breadcrumb() {

@@ -1,0 +1,29 @@
+---
+title: "Expression Evaluator"
+publishedAt: "2026-04-10"
+summary: "Expression parsing and evaluation with implicit multiplication and error checking"
+---
+
+## Objective
+
+I thought the Expression Evaluator project was interesting because it forced me to algorithmically represent the process of calculating an expression. This is something we do almost as second nature, but applying it to computers meant explicitly handling operation order, implicit multiplication, and invalid expressions.
+
+<BlogVideo src="/expression-evaluator-demo.mov" width={700} height={285} />
+
+## Parsing And Error Handling
+
+The difficult part was that every layer depended on the previous one being clean. Before evaluation could work, the input had to be parsed into a form where operations, values, parentheses, and implicit multiplication were all represented consistently.
+
+Once implicit multiplication was parsed clearly, operation errors and data errors became considerably simpler. The project was less about one complicated algorithm and more about making sure each small rule was handled before it could break the next stage.
+
+## Debugging The Evaluation Loop
+
+This was probably the most challenging project for me in the class so far, simply because of the layers of complexity. I had a full version passing the `basic` and `basic_err` tests, but advanced expressions with implicit multiplication started breaking older behavior.
+
+After stepping through the debugger, I found a fundamental flaw in my core evaluation loop. I tried to patch it with small fixes, but the logic got more convoluted because the original structure was less than optimal. Eventually, I cut my losses and rewrote the basic evaluation loop from scratch, using what I had learned to make it simpler and cleaner.
+
+## Learnings
+
+The biggest learning was that clean core logic matters more than passing the first tests quickly. A shaky evaluation loop can survive simple cases, but it becomes painful once edge cases start stacking on top of it.
+
+I was proud of the final product because I think it was some of the cleanest code I had written yet. It also made me wonder how similar computer math engines work under the hood, especially in systems where the order of operations has to stay deterministic.

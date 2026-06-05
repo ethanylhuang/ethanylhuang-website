@@ -7,7 +7,7 @@ export default function HomePage() {
     getPosts(blog.slug).map((post) => ({
       blog,
       post,
-    }))
+    })),
   );
 
   const recentEntries = entries.sort((a, b) => {
@@ -26,9 +26,9 @@ export default function HomePage() {
         Ethan Huang
       </h1>
       <p className="text-xl text-slate-200">
-        I'm Ethan, a high school student from the Bay Area. I like hardware,
-        software, and everything in between. Thanks for visiting my site, check
-        out some of my projects!
+        I'm Ethan, a high school student from the Bay Area. I like solving
+        useful problems and engrossing myself in many engineering disciplines in
+        the process. Thanks for visiting my site, check out some of my projects!
       </p>
       <div className="my-8 space-y-3">
         <h2 className="font-bold">Recent</h2>

@@ -1,0 +1,50 @@
+---
+title: "RSLK"
+publishedAt: "2026-06-02"
+summary: "Line-following TI-RSLK robot using sensors, bit-level IO, FSMs, PWM, and PID"
+---
+
+## Objective
+
+The goal of the RSLK project was to program the TI-RSLK robot to follow a line using IR sensors. At the end of the semester, we raced our robots against the rest of the class, which tested the hardware, control logic, and tuning on the actual track. I won our final drag race competition.
+
+<BlogVideo src="/straight.mov" width={700} height={500} />
+
+## Sensors And Bit-Level IO
+
+This project was where I learned what registers are and how to work with them directly. I learned how to read register values, use bitmasks to isolate or change specific bits, and manipulate data at the bit level instead of relying on higher level abstractions.
+
+I used this to power LEDs in a specific sequence and to read IR sensor data. I found interrupts interesting because they let the robot continuously sample sensor values without blocking the main program. From there, I could output the matching sensor state by lighting the corresponding LED.
+
+## Motors, FSMs, And PWM
+
+For motor control, I learned how to use the built-in timer hardware on the TI-RSLK to set a PWM duty cycle. This let me control motor speed by changing how long each motor was powered during each cycle.
+
+I then added a finite state machine implementation for line following. Each state stored motor speeds, delay timing, LED output, and the next state transitions based on the sensor reading.
+
+```c
+{5000, 5000, 10, 0, Green, { RightOff1, LeftOff1, RightOff1, Center }}, // Center
+{5000, 0, 10, 0, Blue, { LostLeft, LeftOff2, RightOff1, Center }},
+{4000, 2000, 10, 1, Blue, { LostLeft, LeftOff1, RightOff1, Center }},
+{0, 5000, 10, 0, Red, { LostRight, LeftOff1, RightOff2, Center }},
+{2000, 4000, 10, 1, Red, { LostRight, LeftOff1, RightOff1, Center }},
+{5000, 0, 10, 0, Green | Blue, { Fwd15, Fwd15, Fwd15, Fwd15 }},
+{0, 5000, 10, 0, Green | Red, { Fwd15, Fwd15, Fwd15, Fwd15 }},
+{5000, 5000, 10, 0, Red | Green | Blue, { Stop, LeftOff1, RightOff1, Center }},
+{0, 0, 100, 1, 0, { Stop, LeftOff1, RightOff1, Center }},
+{0, 0, 100, 1, Red, { Stop, Stop, Stop, Stop }}
+```
+
+This structure made the line-following logic easier to reason about because each row fully described what the robot should do in that state and where it should go next. It was essentially trading memory space for execution time, since the behavior was stored directly in the state table instead of being determined through a large chain of conditional logic.
+
+<BlogVideo src="/fsm.mov" width={700} height={500} />
+
+## PID Closed Feedback Loop Controller
+
+The final version used a PID-style closed feedback loop controller, though I primarily used the P term. The D term was not very suited for our robot because the sensor fidelity was too low, making derivative-based correction more noisy than useful.
+
+I tuned the constants differently depending on the track. On the flat track, I tried to minimize `Kp` so the robot would drive as straight as possible without oscillating. On the curved Le Mans track, I had to raise `Kp` significantly so the robot could handle hard turns. The tradeoff was that with imperfect hardware and other confounding factors, it oscillated on the final straightaway.
+
+<BlogVideo src="/pid-curve.mov" width={700} height={500} />
+
+This version showed much better curve following than the FSM, but the tradeoff was worse oscillation on the straightaway.

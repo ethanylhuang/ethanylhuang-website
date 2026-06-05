@@ -1,0 +1,71 @@
+---
+title: "Elevator Simulation"
+publishedAt: "2026-01-15"
+summary: "Time-based elevator simulation with FSMs, GUI, and team integration"
+---
+
+## Objective
+
+The elevator project was the largest project in this course, spanning around 2-3 months. The goal was to build a time-based elevator simulation using finite state machines, then compare different elevator configurations and see which one performed best. The project also included a GUI to visualize the elevator moving between floors and loading or unloading passengers.
+
+<BlogVideo src="/rslk-drag-race.mp4" width={700} height={500} />
+
+## Finite State Machine
+
+The core of the project was the building finite state machine. Each state represented one discrete part of the elevator's behavior, from waiting with closed doors to moving one floor, opening doors, unloading passengers, boarding passengers, and closing again.
+
+```java
+package building;
+
+public enum ElStates {
+  /**
+   * Elevator is not moving, doors are closed, no passengers or calls
+   */
+  STOP,
+  /**
+   * Elevator is moving, doors are closed, no passengers but answering a call
+   * from STOP state!
+   */
+  MVTOFLR,
+  /**
+   * Elevator has arrived at a floor and is opening the doors
+   */
+  OPENDR,
+  /**
+   * Elevator has opened doors, and passengers are getting off.
+   */
+  OFFLD,
+  /**
+   * Elevator has doors open, and passengers are getting on if there is room
+   */
+  BOARD,
+  /**
+   * Elevator has completed unloading and loading passengers, closing the doors
+   */
+  CLOSEDR,
+  /**
+   * Default move state of the Elevator. Doors are closed and there are either
+   * passengers on the elevator or on a floor waiting to board. Moves 1 floor
+   * at a time to determine if it needs to stop or continue moving.
+   */
+  MV1FLR,
+  /**
+   * Undefined state for initial conditions at Time 0, error conditions.
+   */
+  UNDEF;
+}
+```
+
+This enum made the logic much easier to reason about because every tick of the simulation had to move through a known state. Instead of treating elevator behavior as one large block of conditional logic, the system could advance incrementally and check whether it needed to stop, open doors, unload, board, or keep moving.
+
+## Class Responsibilities
+
+Our team split the project across the GUI, controller, building, elevator, passenger, floor, and call manager classes. I focused on the `Building` and `Elevator` classes, which meant connecting arriving passengers to the correct floor queues, advancing time, updating elevator state, handling door timing, setting direction, and removing passengers once they reached their destination.
+
+The `Building` class acted as the coordinator. It had to know when passengers had been added for a tick, pass calls into the system, and update the elevator after time advanced. The `Elevator` class handled the more physical behavior: current floor, target floor, direction, doors, movement, and passenger transfer.
+
+## Integration And Debugging
+
+The hardest part was not writing any one method in isolation. It was making separately written code actually agree on interfaces, helper methods, getters, setters, and encapsulation responsibilities. A lot of the final work became writing the "glue" that connected classes written by different people, which was a direct side effect of division of labor.
+
+Most of our time was spent on calls debugging tests one by one, stepping through the code line by line and checking the reality against the ground truth incrementally. The project taught me that clean class prototyping has to happen early, because small mistakes in foundational classes compound quickly once every subsystem depends on the others.

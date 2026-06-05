@@ -71,15 +71,15 @@ function readSectionMeta(blogSlug: string) {
   const metaPath = path.join(CONTENT_ROOT, blogSlug, "section.json");
 
   if (!fs.existsSync(metaPath)) {
-    return {} as { description?: string };
+    return {} as { title?: string; description?: string };
   }
 
   try {
     const raw = fs.readFileSync(metaPath, "utf-8");
-    return JSON.parse(raw) as { description?: string };
+    return JSON.parse(raw) as { title?: string; description?: string };
   } catch (error) {
     console.warn(`Failed to parse metadata for section "${blogSlug}":`, error);
-    return {} as { description?: string };
+    return {} as { title?: string; description?: string };
   }
 }
 
@@ -90,7 +90,7 @@ export function getBlogs(): Blog[] {
 
       return {
         slug,
-        title: titleCase(slug) || slug,
+        title: meta.title || titleCase(slug) || slug,
         description: meta.description,
       } satisfies Blog;
     })

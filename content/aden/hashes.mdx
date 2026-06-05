@@ -1,0 +1,37 @@
+---
+title: "Hashes"
+publishedAt: "2026-03-25"
+summary: "Hash table collision strategies, load factors, and benchmark analysis"
+---
+
+## Objective
+
+In this assignment, I learned about hashes and their utility as a tradeoff between memory and lookup speed. The goal was to compare different collision strategies, including linear probing, quadratic probing, linked list hashing, and cuckoo hashing, then analyze how they performed under different load factors and datasets.
+
+## Dataset Analysis
+
+The benchmark compared a more evenly distributed dataset against a highly bimodal one. I expected the bimodal data to hurt every implementation because the concentration of values would create clustering, causing slower operations and more hash growth.
+
+<BlogImage src="/dataset-d-histogram.svg" width={700} height={433} alt="Histogram of Dataset D showing a bimodal distribution" />
+
+Some general patterns showed up across the graphs. At higher load factors, `contains` was slower for misses because probing had to be completed until an empty slot was reached, whereas a hit could stop early. `Add` was also slower than `contains` because it called `contains` first, meaning it inherited the same miss-performance problem at high load factors.
+
+## Comparing Hashes
+
+Linear probing struggled the most at high load factors because clusters expanded until they started to intersect, creating one large cluster that had to be probed through. It stayed reasonable up to about `0.7` load factor, but degraded sharply at `0.9`.
+
+Quadratic probing was more consistent because it avoided the contiguous clusters that linear probing creates. It still degraded at high load factors, but the jump was much less significant.
+
+Linked list hashing was slower on average, especially for remove operations, but it avoided the severe high-load degradation of open addressing. Cuckoo hashing was the most surprising result. Contrary to my prediction, it stayed consistently fast, even on the bimodal dataset, likely because the second hash function created enough independence between the two tables.
+
+## Hash Utilization
+
+The utilization maps were interesting because the bimodal structure of dataset D was not always visible. Linear and quadratic probing spread values into nearby open spaces, removing the obvious peaks. Cuckoo hashing showed the bimodal structure more clearly because each key only had two possible locations.
+
+Even though cuckoo hashing showed the clustering in the utilization map, it was still the most performant. That made the second hash function feel much more concrete, since it was clearly helping maintain fast lookups despite the input distribution.
+
+## Learnings
+
+This project made hashes feel less like a black box. They are essentially a way to maintain near `O(1)` lookups without exhaustive memory usage, but that performance depends heavily on load factor, collisions, and the structure of the input data.
+
+The data analysis portion was the hardest part because creating and interpreting graphs was much more time consuming than I expected. I also ran into anomalies that I could not concretely answer, so I had to make reasonable guesses based on my understanding of the implementation or attribute them to some external factor.
