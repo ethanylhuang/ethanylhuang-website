@@ -1,0 +1,180 @@
+---
+title: "Minibot"
+publishedAt: "2026-06-05"
+summary: "Differential drive obstacle course robot with laser-cut plates, FRC-style assembly, and drivetrain debugging"
+---
+
+## Objective
+
+The goal of the Minibot project was to build a differential drive robot that would compete against the rest of the class on an obstacle course. The course tested whether the robot could go over ramps, displace weight, and turn accurately.
+
+<BlogImage
+  src="/minibot.png"
+  width={797}
+  height={764}
+  alt="Completed Minibot"
+/>
+
+## Design
+
+We took an unconventional approach to this project. Instead of using the traditional design for this class, our robot was based on a design made by one of our FRC teammates so that we could learn skills more directly related to building an actual FRC robot.
+
+For example, rather than using a traditional woodworking process with 2x4 wood, our design used laser-cut quarter-inch wood and acrylic plates. This meant that instead of spending a lot of time learning woodworking machines to manufacture the minibot frame, a process that is not really useful for the FRC season, we could put the plates in the laser cutter and get a precise, dimensionally accurate frame much more quickly.
+
+I also liked this approach because laser cutting is a genuinely useful prototyping skill. During FRC, laser-cut plates are really helpful for quick brackets, electronics panels, and geometry checks, so it felt like a better use of time than building a mostly wooden drivebase.
+
+The tradeoff was that our design was much more tightly packaged than the standard class robot. In CAD, this looked clean and efficient. In real life, it meant that the robot was very sensitive to small tolerance problems, wiring clearances, and repair access.
+
+<BlogImage
+  src="/minibot-cad.png"
+  width={774}
+  height={548}
+  alt="CAD render of the Minibot"
+/>
+
+## Assembly And Manufacturing
+
+We started by planning the project with a Gantt chart so that we had a rough path from manufacturing to assembly to programming. I filled out a lot of the code sections and helped think through the mechanical tasks, mostly using what I had learned during FRC season to estimate where the hard parts would be.
+
+The first real manufacturing step was laser cutting the side plates. I had learned laser cutting during FRC, so I taught other people the Adobe Illustrator and UCP workflow. We were able to use both laser cutters at once, which let us finish a large number of plates in one period.
+
+<BlogImage
+  src="/minibot-assembly-1.jpg"
+  width={600}
+  height={800}
+  alt="Laser-cut Minibot plates and 3D printed parts"
+/>
+
+The first assembly challenge came from the 3D printed nustrips. The self-tapping holes were too small, so the screws could not thread in cleanly. We had to tap the holes manually before assembly, which made the parts usable but also showed that the CAD tolerance needed to account for printed holes coming out smaller than modeled.
+
+<BlogImage
+  src="/minibot-assembly-2.jpg"
+  width={600}
+  height={800}
+  alt="Minibot frame assembled from laser-cut plates"
+/>
+
+After that, we moved into drivetrain assembly. We rebuilt the two gearboxes to a 1:1 ratio, which meant disassembling the top plate, swapping gears, and pressing bearings off the spline. The bearings were especially annoying to remove, and we had to use the arbor press to apply enough force at a straight angle.
+
+We then found a CAD mistake: the gearbox mounting holes did not line up with the side plates because of a rotational symmetry error in the hole pattern. I fixed the sketch by projecting the actual center points into the hole pattern, then we laser cut new plates and reassembled the chassis.
+
+<BlogImage
+  src="/minibot-assembly-3.jpg"
+  width={600}
+  height={800}
+  alt="Corner fasteners on the Minibot chassis"
+/>
+
+At the same time, we were manufacturing the electronics skeleton as its own 3D printed module. This made the wiring cleaner, but it also contributed to the tight packaging that caused problems later.
+
+<BlogImage
+  src="/minibot-assembly-4.jpg"
+  width={600}
+  height={800}
+  alt="Minibot electronics skeleton with power distribution hub"
+/>
+
+## Electronics And Packaging
+
+The electronics also created a few small problems. One SparkMax signal wire pulled out of its connector housing, so I had to learn how to crimp a new connector. It was a delicate process because the crimps were tiny and needed to be aligned correctly in the crimper. Later, we also had to revise the battery skeleton because the bottom plate needed to be removable, but the nuts were not accessible from the top. Our first fix was hot gluing captive nuts into place, but glue got into the threads and pushed the nuts out when we tightened the screws. We eventually moved to a newer skeleton with heat-set inserts, which was a much better solution.
+
+<BlogImage
+  src="/minibot-electronics-2.jpg"
+  width={600}
+  height={800}
+  alt="Damaged SparkMax signal connector"
+/>
+
+The battery was also tight enough that cable routing became a real design constraint. The battery compartment was almost exactly sized to the battery, and the terminals could only face one direction. We had to route the cables carefully, changing the angle of approach and making unavoidable loops as large as possible so the wires were not under too much stress.
+
+<BlogImage
+  src="/minibot-electronics-1.jpg"
+  width={800}
+  height={600}
+  alt="Packed Minibot electronics and wiring"
+/>
+
+## Drivetrain Iteration
+
+For the chain, we used #25 chain and referenced an Onshape FeatureScript to calculate chain length from the center-to-center distance and sprocket sizes. This gave us a good starting point instead of forcing us to guess and check the whole way. We also learned how to use master links and clips to combine chains cleanly.
+
+<BlogImage
+  src="/minibot-chain.jpg"
+  width={600}
+  height={800}
+  alt="Chain run on the Minibot drivetrain"
+/>
+
+The first assembled version drove on flat ground, but the 1:1 gear ratio did not have enough torque for rough terrain or slopes. The gearboxes stalled unevenly, which made the robot drift and spin out even when we were commanding straight forward movement. We had to disassemble most of the robot again, change the gear ratio to 5:1, and reassemble the side plates.
+
+<BlogVideo
+  src="/minibot-initial-driving.mp4"
+  width={700}
+  height={394}
+  aria-label="Initial Minibot driving test"
+/>
+
+That was not the last drivetrain problem. One gearbox seized because a mounting screw interfered with a gear, so we had to disassemble the side walls again, change the spacing and gear orientation, and verify that the gearbox spun freely. Then one of the 3D printed shafts snapped during testing, so we replaced the printed shafts with metal ones. We cut the shaft stock on the bandsaw, faced the shafts to length on the lathe, and switched from E-clip slots to bolt and washer retention by drilling and tapping the ends of the shafts.
+
+<BlogVideo
+  src="/minibot-gear-ratio-issue.mp4"
+  width={405}
+  height={720}
+  aria-label="Minibot gear ratio issue test"
+/>
+
+## Programming
+
+Programming started with basic systems checks. Before trying to drive the full robot, I wrote simple Arduino tests that commanded constant PWM outputs to the SparkMax controllers so we could verify that the electronics were wired correctly.
+
+<BlogVideo
+  src="/minibot-code-testing-dual.mp4"
+  width={700}
+  height={394}
+  aria-label="Dual motor code testing"
+/>
+
+After that, I adapted the controller code from a single gearbox to two gearboxes. The receiver channels were read with `pulseIn`, and motor outputs were sent as servo-style microsecond commands, with `1500` as neutral and values closer to `1000` or `2000` commanding the motors in opposite directions.
+
+One issue was that our gearboxes were mounted at the front of the robot instead of the back, so what the code considered forward was physically backward. I fixed this by reversing the left motor command and making sure the controller mapping matched the actual robot.
+
+The steering code used a simple differential drive mixer. Throttle controlled the shared forward or backward output, while steering added speed to one side and removed it from the other.
+
+```cpp
+void writeMotors(int throttleUs, int steeringUs) {
+  int throttleOffsetUs = controlOffset(throttleUs);
+  int steeringOffsetUs = controlOffset(steeringUs);
+
+  int leftCommandUs = MOTOR_NEUTRAL_US + throttleOffsetUs + steeringOffsetUs;
+  int rightCommandUs = MOTOR_NEUTRAL_US + throttleOffsetUs - steeringOffsetUs;
+
+  writeMotorCommands(leftCommandUs, rightCommandUs);
+}
+```
+
+This made the control structure much easier to reason about because straight driving and turning were combined into one calculation instead of being split across a bunch of separate cases. I had originally planned to add PID control after the drivetrain was reliable, but most of our programming time ended up going into systems checks, controller mapping, motor direction, and making sure the robot responded predictably enough to test mechanically.
+
+## Testing And Results
+
+Our final result was heavily limited by a faulty left motor. Most of the time, the motor simply would not start running even when it was given the proper PWM input. It needed a jumpstart where one of our teammates would push the shaft by hand to get it moving.
+
+We were fairly certain this was not caused by gearbox resistance. The gearbox was easy to turn by hand, and we had greased it pretty well. The more likely issue was an inherent flaw with the motor, probably somewhere in its electrical connections. Unfortunately, there were no spare motors left, so we had to run the obstacle course with only one reliably functioning gearbox.
+
+For a differential drive robot, losing one side is about as bad as it sounds. Instead of driving straight, the robot constantly spun out. This made the course much harder because the robot could not reliably drive forward, turn accurately, or recover after hitting an obstacle.
+
+<BlogVideo
+  src="/minibot-spinning-out.mp4"
+  width={405}
+  height={720}
+  aria-label="Minibot spinning out during testing"
+/>
+
+## General Learnings
+
+The biggest thing I learned from this project was the importance of repairability. Our design was built to be as compact as physically possible, but that compactness became the source of most of our problems.
+
+There was almost no clearance anywhere. We could not easily reach our hands into the frame to disassemble parts, replace components, or change wiring. Any time we had to replace something, whether it was changing the gearbox ratio, replacing the motor, or fixing wiring, we had to disassemble a large portion of the frame. This took up most of our time and made every issue much more expensive to fix.
+
+In the future, I would prioritize repairability much earlier in the design process. I would leave more clearance around electronics, create easier access to fasteners, make the drivetrain more modular, and avoid packaging parts so tightly that a small repair turns into a full teardown.
+
+Even though the final course run did not go the way we wanted, I think this project was still a much better learning experience than a simpler wooden robot would have been. We dealt with laser cutting, 3D printed tolerances, chain, gear ratios, crimping, controller wiring, lathe work, and real drivetrain debugging. Those are much closer to the kinds of problems that show up during FRC, which was the whole point of taking this approach.

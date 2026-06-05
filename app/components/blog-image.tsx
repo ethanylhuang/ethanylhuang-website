@@ -8,10 +8,18 @@ export function BlogImage(props: ImageProps) {
   );
 }
 
-export function BlogVideo(props: React.VideoHTMLAttributes<HTMLVideoElement>) {
+export function BlogVideo({
+  className = "",
+  controls = true,
+  ...props
+}: React.VideoHTMLAttributes<HTMLVideoElement>) {
   return (
     <div className="flex justify-center">
-      <video {...props} className="" controls />
+      <video
+        {...props}
+        className={`max-w-full h-auto ${className}`}
+        controls={controls}
+      />
     </div>
   );
 }
