@@ -25,9 +25,7 @@ export default function HomePage() {
     <section className="space-y-14">
       <section className="grid gap-8 md:grid-cols-[minmax(0,1fr)_380px] md:items-center">
         <div className="space-y-5">
-          <h1 className="text-5xl font-semibold tracking-tight">
-            Ethan Huang
-          </h1>
+          <h1 className="text-5xl font-semibold tracking-tight">Ethan Huang</h1>
           <p className="text-xl leading-relaxed text-neutral-800">
             I'm Ethan, a high school student from the Bay Area. I like solving
             useful problems and engrossing myself in many engineering
@@ -46,12 +44,12 @@ export default function HomePage() {
 
       <section className="space-y-10">
         <div className="space-y-3">
-          <h2 className="text-2xl font-semibold tracking-tight">Rocketry</h2>
+          <h2 className="text-2xl font-semibold tracking-tight">Rockets</h2>
           <p className="text-base leading-relaxed text-neutral-600">
             I started our school's rocket club, where we design, build, and
-            launch high-powered model rockets. Some of the projects we have
-            been working on include an actively controlled rocket using thrust
-            vector control and a rocket that can surpass the speed of sound.
+            launch high-powered model rockets. Some of the projects we have been
+            working on include an actively controlled rocket using thrust vector
+            control and a rocket that can surpass the speed of sound.
           </p>
         </div>
 
@@ -61,8 +59,8 @@ export default function HomePage() {
             <p className="text-base leading-relaxed text-neutral-600">
               I am also part of our school's robotics team, with my
               responsibilities including CAD design, programming, CNC machining,
-              and mechanical assembly and maintenance. This year, we made it
-              all the way to the district championship, falling just short of
+              and mechanical assembly and maintenance. This year, we made it all
+              the way to the district championship, falling just short of
               Worlds. We learned a lot and are confident we have a good shot at
               Worlds next year.
             </p>
